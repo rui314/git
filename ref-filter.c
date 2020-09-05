@@ -1616,7 +1616,14 @@ static int populate_value(struct ref_array_item *ref, struct strbuf *err)
 {
 	struct object *obj;
 	int i;
+
+	// OBJECT_INFO_INIT is {0}, so all members of `empty` are
+	// initialized with 0. But that doesn't guarantee paddings
+	// of the struct are also initialized with 0.
 	struct object_info empty = OBJECT_INFO_INIT;
+
+	// set random data to padding
+	empty.padding = 0xffffffff;
 
 	ref->value = xcalloc(used_atom_cnt, sizeof(struct atom_value));
 

@@ -333,6 +333,7 @@ struct object_info {
 		OI_PACKED,
 		OI_DBCACHED
 	} whence;
+	int padding; // shouldn't change the object size
 	union {
 		/*
 		 * struct {
